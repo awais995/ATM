@@ -3,9 +3,23 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 // Initialize the initial balance and PIN code for the account
 let balance = 50000;
-const PIN = 1234;
+let PIN;
+async function setup() {
+    const { newPin } = await inquirer.prompt([
+        {
+            name: "newPin",
+            type: "password",
+            mask: "*",
+            message: "set your 4 digit ATM Pin"
+        }
+    ]);
+    // convert the uset input pin into a number
+    PIN = parseInt(newPin);
+    console.log(chalk.green("ATM pin set successfully."));
+}
 // Main function to start the ATM application
 async function main() {
+    await setup();
     let userpin = await inquirer.prompt([
         {
             name: "pin",
